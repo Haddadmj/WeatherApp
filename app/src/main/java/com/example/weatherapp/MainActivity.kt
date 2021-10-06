@@ -111,7 +111,12 @@ class MainActivity : AppCompatActivity() {
                 call: Call<WeatherResponse?>,
                 response: Response<WeatherResponse?>
             ) {
-                updateView(response.body())
+                if(response.isSuccessful){
+                    updateView(response.body())
+                }else{
+                    code = "10001,us"
+                    getWeatherByZIP()
+                }
             }
 
             override fun onFailure(call: Call<WeatherResponse?>, t: Throwable) {
